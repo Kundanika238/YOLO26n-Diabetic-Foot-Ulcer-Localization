@@ -22,7 +22,6 @@ YOLO26n model used for diabetic foot ulcer localization.
 
 - `results.csv`: Recorded training and validation metrics
   across all 50 epochs.
-- `args.yaml`: Ultralytics training configuration.
 
 The epoch-wise validation metrics are separate from
 the final held-out test evaluation results.
