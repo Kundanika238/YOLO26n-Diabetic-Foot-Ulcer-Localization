@@ -23,23 +23,17 @@ app = Flask(__name__)
 
 app.config["MAX_CONTENT_LENGTH"] = 10 * 1024 * 1024
 
-ROOT = Path(r"D:\Diabetic_Foot_Ulcer_Project")
 
+# Project paths
 BASE_DIR = Path(__file__).resolve().parent
+ROOT = BASE_DIR.parent
 
-MODEL_PATH = (
-    ROOT
-    / "05_Models"
-    / "yolo26n_research_baseline_50epochs_v2"
-    / "weights"
-    / "best.pt"
-)
+# Final trained YOLO26n model
+MODEL_PATH = ROOT / "models" / "best.pt"
 
-DATASET_PATH = (
-    ROOT
-    / "03_YOLO_Dataset"
-    / "DFU_Research_SCREENED_DRAFT"
-)
+# Optional local dataset (not included in GitHub)
+DATASET_PATH = ROOT / "data" / "DFU_Research_SCREENED_DRAFT"
+
 
 IMAGE_SIZE = 512
 CONFIDENCE_THRESHOLD = 0.20
