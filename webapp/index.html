@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>DFUVision | AI-Assisted Foot Image Analysis</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<header class="topbar">
+    <div class="shell header-inner">
+        <div class="brand">
+            <div class="brand-icon">+</div>
+            <div>
+                <strong>DFU<span>Vision</span></strong>
+                <small>Medical Imaging Research</small>
+            </div>
+        </div>
+
+        <span class="app-label">
+            <span class="status-dot"></span>
+            Local Research Application
+        </span>
+    </div>
+</header>
+
+<main class="shell">
+
+    <section class="hero">
+        <div class="eyebrow">AI-ASSISTED IMAGE ANALYSIS</div>
+
+        <h1>Diabetic Foot Ulcer Detection</h1>
+
+        <p>
+            Upload a foot image to identify and localize
+            potential ulcer regions using a trained YOLO26n
+            object detection model.
+        </p>
+    </section>
+
+    <div class="workspace">
+
+        <!-- UPLOAD PANEL -->
+
+        <section class="panel upload-panel">
+            <div class="panel-heading">
+                <div>
+                    <span class="step-label">STEP 01</span>
+                    <h2>Upload Image</h2>
+                </div>
+                <span class="panel-tag">Input</span>
+            </div>
+
+            <p class="panel-description">
+                Choose a JPG or PNG image of a foot.
+                Maximum file size: 10 MB.
+            </p>
+
+            <div class="upload-area">
+                <div class="upload-symbol">+</div>
+
+                <label for="imageInput" class="upload-title">
+                    Select a foot image
+                </label>
+
+                <input
+                    id="imageInput"
+                    type="file"
+                    accept=".jpg,.jpeg,.png,image/jpeg,image/png"
+                >
+
+                <p>JPG, JPEG or PNG</p>
+            </div>
+
+            <div id="fileInfo" class="file-info" hidden></div>
+
+            <div id="previewBlock" class="preview-block" hidden>
+                <h3>Selected Image</h3>
+
+                <img
+                    id="previewImage"
+                    alt="Original uploaded foot image"
+                >
+            </div>
+
+            <button id="detectBtn" class="primary-btn" disabled>
+                <span class="button-symbol">⌕</span>
+                Analyze Foot Image
+            </button>
+
+            <p id="errorMessage"
+               class="error-message"
+               role="alert"
+               hidden></p>
+
+            <div class="method-info">
+                <div><span>Detection model</span><strong>YOLO26n</strong></div>
+                <div><span>Input resolution</span><strong>512 px</strong></div>
+                <div><span>Display threshold</span><strong>20%</strong></div>
+            </div>
+        </section>
+
+        <!-- RESULTS PANEL -->
+
+        <section class="panel results-panel">
+            <div class="panel-heading">
+                <div>
+                    <span class="step-label">STEP 02</span>
+                    <h2>Analysis Results</h2>
+                </div>
+                <span id="resultTag" class="panel-tag">
+                    Ready
+                </span>
+            </div>
+
+            <div id="emptyState" class="empty-state">
+                <div class="empty-symbol">⌕</div>
+                <h3>Your results will appear here</h3>
+                <p>
+                    Upload a foot image and select
+                    Analyze Foot Image to begin.
+                </p>
+            </div>
+
+            <div id="loadingState" class="loading-state" hidden>
+                <div class="spinner"></div>
+                <h3>Analyzing the image</h3>
+                <p>Running the trained YOLO26n model...</p>
+            </div>
+
+            <div id="resultData" hidden>
+
+                <div id="resultBanner" class="result-banner">
+                    <strong id="resultStatus"></strong>
+                    <p id="resultExplanation"></p>
+                </div>
+
+                <div class="comparison-grid">
+
+                    <figure class="image-card">
+                        <figcaption>Original Image</figcaption>
+                        <img id="resultOriginal"
+                             alt="Original foot photograph">
+                    </figure>
+
+                    <figure class="image-card">
+                        <figcaption>Model Predictions</figcaption>
+                        <img id="resultImage"
+                             alt="YOLO26n bounding box predictions">
+                    </figure>
+
+                </div>
+
+                <div class="metrics-grid">
+
+                    <div class="metric">
+                        <span>Flagged Regions</span>
+                        <strong id="regionCount">0</strong>
+                    </div>
+
+                    <div class="metric">
+                        <span>Highest Model Score</span>
+                        <strong id="highestConfidence">0%</strong>
+                    </div>
+
+                </div>
+
+                <h3 class="details-title">Region Details</h3>
+
+                <div id="regionsList" class="regions-list"></div>
+
+                <a id="downloadLink"
+                   class="download-btn"
+                   href="#"
+                   download="DFU_detection_result.jpg">
+                    Download Annotated Image
+                </a>
+
+                <p class="result-note">
+                    Bounding boxes are AI-generated proposals.
+                    A low score or an unmarked region does not
+                    exclude an ulcer.
+                </p>
+            </div>
+        </section>
+
+    </div>
+
+    <section class="disclaimer">
+        <strong>Research and educational use only.</strong>
+        This system is not a medical diagnosis tool.
+        Predictions should not replace assessment by a
+        qualified healthcare professional.
+    </section>
+
+</main>
+
+<footer class="footer">
+    DFUVision — YOLO26n-Based Diabetic Foot Ulcer Detection
+    Research Prototype
+</footer>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+</html>
