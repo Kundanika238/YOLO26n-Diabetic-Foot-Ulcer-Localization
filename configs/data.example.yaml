@@ -1,0 +1,14 @@
+# Final screened diabetic foot ulcer dataset
+# Update path to the local dataset directory before training/evaluation.
+# Dataset images are not distributed in this repository.
+
+path: /replace/with/absolute/path/to/DFU_Research_SCREENED_DRAFT
+
+train: train/images
+val: val/images
+test: test/images
+
+nc: 1
+
+names:
+  0: DFU
